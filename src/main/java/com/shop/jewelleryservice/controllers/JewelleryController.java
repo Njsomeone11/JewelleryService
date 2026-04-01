@@ -35,13 +35,13 @@ public class JewelleryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(jewelleryService.createJewelleryItem(values));
     }
 
-    @PatchMapping("/updateItem")
-    public ResponseEntity<JewelleryItems> updateJewelleryItem(@RequestBody Map<String, Object> values){
-        return ResponseEntity.ok(jewelleryService.updateJewelleryItem(values));
+    @PutMapping("/updateItem/{id}")
+    public ResponseEntity<JewelleryItems> updateJewelleryItem(@PathVariable Long id, @RequestBody JewelleryItemsDto values){
+        return ResponseEntity.ok(jewelleryService.updateJewelleryItem(id, values));
     }
 
-    @DeleteMapping("/deleteItem")
-    public ResponseEntity<Map<String, Object>> deleteJewelleryItem(@RequestBody Map<String, Object> values){
-        return ResponseEntity.ok(jewelleryService.deleteJewelleryItem(values));
+    @DeleteMapping("/deleteItem/{id}")
+    public ResponseEntity<String> deleteJewelleryItem(@PathVariable Long id){
+        return ResponseEntity.ok(jewelleryService.deleteJewelleryItem(id));
     }
 }

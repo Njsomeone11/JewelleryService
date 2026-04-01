@@ -6,7 +6,6 @@ import com.shop.jewelleryservice.entity.MetalItems;
 import com.shop.jewelleryservice.repositories.JewelleryRepository;
 import com.shop.jewelleryservice.repositories.MetalItemsRepository;
 import com.shop.jewelleryservice.repositories.TaxesRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,6 @@ public class JewelleryServiceImpl implements JewelleryService{
         return result;
     }
 
-    @Transactional
     @Override
     public JewelleryItems createJewelleryItem(JewelleryItemsDto values) {
 
@@ -46,9 +44,9 @@ public class JewelleryServiceImpl implements JewelleryService{
         Integer taxId = newJewelItem.getTaxId();
         Integer availability = newJewelItem.getAvailability();
 
-        Optional<MetalItems> metalItems = metalItemsRepository.findMetalItemsByItem(newJewelItem.getMetalType());
-        BigDecimal metalPrice = metalItems.map(MetalItems::getPricePerGram).orElse(new BigDecimal("0.0"));
-        BigDecimal baseMakingCharge = metalItems.map(MetalItems::getBaseMakingCharge).orElse(new BigDecimal("0.0"));
+        String metalItemPrices = getMetalItemPrices(newJewelItem.getMetalType());
+        BigDecimal metalPrice = new BigDecimal(metalItemPrices.split("_")[0]);
+        BigDecimal baseMakingCharge = new BigDecimal(metalItemPrices.split("_")[1]);
 
         BigDecimal basePrice = quantity.multiply(metalPrice);
         BigDecimal makingCharges = quantity.multiply(baseMakingCharge);
@@ -61,6 +59,13 @@ public class JewelleryServiceImpl implements JewelleryService{
         return jewelleryRepository.save(newJewelItem);
     }
 
+    public String getMetalItemPrices(String metalType){
+        Optional<MetalItems> metalItems = metalItemsRepository.findMetalItemsByItem(metalType);
+        BigDecimal metalPrice = metalItems.map(MetalItems::getPricePerGram).orElse(new BigDecimal("0.0"));
+        BigDecimal baseMakingCharge = metalItems.map(MetalItems::getBaseMakingCharge).orElse(new BigDecimal("0.0"));
+        return metalPrice + "_" + baseMakingCharge;
+    }
+
     public BigDecimal calculateFinalPrice(BigDecimal subTotal, Integer taxId){
         BigDecimal finalPrice;
         BigDecimal taxPrice = taxesRepository.getTaxPercentage(taxId);
@@ -69,14 +74,41 @@ public class JewelleryServiceImpl implements JewelleryService{
     }
 
     @Override
-    public JewelleryItems updateJewelleryItem(Map<String, Object> values) {
-        return null;
+    public JewelleryItems updateJewelleryItem(Long id, JewelleryItemsDto values) {
+        JewelleryItems existItem = jewelleryRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
+
+        existItem.setName(values.getName());
+        existItem.setMetalType(values.getMetalType());
+        existItem.setQuantity(values.getQuantity());
+        existItem.setShippingCharges(values.getShippingCharges());
+        existItem.setTaxId(values.getTaxId());
+        existItem.setAvailability(values.getAvailability());
+
+        BigDecimal quantity = existItem.getQuantity();
+        BigDecimal shippingCharges = existItem.getShippingCharges();
+
+        String metalItemPrices = getMetalItemPrices(existItem.getMetalType());
+        BigDecimal metalPrice = new BigDecimal(metalItemPrices.split("_")[0]);
+        BigDecimal baseMakingCharge = new BigDecimal(metalItemPrices.split("_")[1]);
+
+        BigDecimal basePrice = quantity.multiply(metalPrice);
+        BigDecimal makingCharges = quantity.multiply(baseMakingCharge);
+        BigDecimal subTotal = basePrice.add(makingCharges).add(shippingCharges);
+
+        existItem.setMakingCharges(makingCharges);
+        existItem.setFinalPrice(calculateFinalPrice(subTotal, existItem.getTaxId()));
+
+        return jewelleryRepository.save(existItem);
     }
 
     @Override
-    public Map<String, Object> deleteJewelleryItem(Map<String, Object> values) {
-        return Map.of();
+    public String deleteJewelleryItem(Long id) {
+        if (!jewelleryRepository.existsById(id)) {
+            throw new RuntimeException("Item not found with id: " + id);
+        }
+        else{
+            jewelleryRepository.deleteById(id);
+            return "Item deleted";
+        }
     }
-
-
 }

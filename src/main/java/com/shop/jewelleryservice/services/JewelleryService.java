@@ -10,7 +10,7 @@ public interface JewelleryService {
 
     JewelleryItems createJewelleryItem(JewelleryItemsDto values);
 
-    JewelleryItems updateJewelleryItem(Map<String, Object> values);
+    JewelleryItems updateJewelleryItem(Long id, JewelleryItemsDto values);
 
-    Map<String, Object> deleteJewelleryItem(Map<String, Object> values);
+    String deleteJewelleryItem(Long id);
 }
