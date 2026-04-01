@@ -1,13 +1,11 @@
 package com.shop.jewelleryservice.services;
 
-import com.shop.jewelleryservice.MapperConfig;
 import com.shop.jewelleryservice.dto.JewelleryItemsDto;
 import com.shop.jewelleryservice.entity.JewelleryItems;
 import com.shop.jewelleryservice.entity.MetalItems;
 import com.shop.jewelleryservice.repositories.JewelleryRepository;
 import com.shop.jewelleryservice.repositories.MetalItemsRepository;
 import com.shop.jewelleryservice.repositories.TaxesRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
