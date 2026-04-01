@@ -10,13 +10,13 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "taxes")
+@Table(name = "TAXES")
 public class Tax {
 
     @Id
-    private int id;
+    private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String taxName;
 
     private Float percentage;

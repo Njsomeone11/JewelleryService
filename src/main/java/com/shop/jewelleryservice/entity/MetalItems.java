@@ -6,6 +6,8 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -15,5 +17,16 @@ public class MetalItems {
     @Id
     private String item;
 
-    private Double pricePerGram;
+    private BigDecimal pricePerGram;
+
+    private BigDecimal baseMakingCharge;
+
+    @Override
+    public String toString() {
+        return "MetalItems{" +
+                "item='" + item + '\'' +
+                ", pricePerGram=" + pricePerGram +
+                ", baseMakingCharge=" + baseMakingCharge +
+                '}';
+    }
 }

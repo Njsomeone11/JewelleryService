@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 @Entity
 @Getter
 @Setter
-@Table(name = "JEWELLERY_ITEMS")
 public class JewelleryItems {
 
     @Id
@@ -22,9 +21,28 @@ public class JewelleryItems {
 
     private BigDecimal quantity;
 
+    private Integer taxId;
+
     private BigDecimal makingCharges;
+
+    private BigDecimal shippingCharges;
 
     private BigDecimal finalPrice;
 
-    private int availability;
+    private Integer availability;
+
+    @Override
+    public String toString() {
+        return "JewelleryItems{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", metalType='" + metalType + '\'' +
+                ", quantity=" + quantity +
+                ", taxId=" + taxId +
+                ", makingCharges=" + makingCharges +
+                ", shippingCharges=" + shippingCharges +
+                ", finalPrice=" + finalPrice +
+                ", availability=" + availability +
+                '}';
+    }
 }
