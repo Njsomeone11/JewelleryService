@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "TAXES")
+@Table(name = "TAX_VALUES")
 public class Tax {
 
     @Id

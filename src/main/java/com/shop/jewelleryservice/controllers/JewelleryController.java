@@ -3,6 +3,7 @@ package com.shop.jewelleryservice.controllers;
 import com.shop.jewelleryservice.dto.JewelleryItemsDto;
 import com.shop.jewelleryservice.entity.JewelleryItems;
 import com.shop.jewelleryservice.services.JewelleryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,15 +32,23 @@ public class JewelleryController {
      * @return : It returns the JewelleryItems entity details back as response
      */
     @PostMapping("/createItem")
-    public ResponseEntity<JewelleryItems> createJewelleryItem(@RequestBody JewelleryItemsDto values){
+    public ResponseEntity<JewelleryItems> createJewelleryItem(@RequestBody @Valid JewelleryItemsDto values){
         return ResponseEntity.status(HttpStatus.CREATED).body(jewelleryService.createJewelleryItem(values));
     }
 
+    /**@Paramters : User may update the fields like name, metal type, quantity, making charges, final charge, availability will be received from screen
+     * @apiNote : This API updates the jewellery item fields user wants to update
+     * @return : It returns the JewelleryItems entity details back as response
+     */
     @PutMapping("/updateItem/{id}")
     public ResponseEntity<JewelleryItems> updateJewelleryItem(@PathVariable Long id, @RequestBody JewelleryItemsDto values){
         return ResponseEntity.ok(jewelleryService.updateJewelleryItem(id, values));
     }
 
+    /**@Paramters : User may delete the item from the list
+     * @apiNote : This API deletes the jewellery item
+     * @return : It returns a String "Item deleted"
+     */
     @DeleteMapping("/deleteItem/{id}")
     public ResponseEntity<String> deleteJewelleryItem(@PathVariable Long id){
         return ResponseEntity.ok(jewelleryService.deleteJewelleryItem(id));

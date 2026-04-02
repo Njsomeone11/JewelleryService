@@ -68,9 +68,13 @@ public class JewelleryServiceImpl implements JewelleryService{
 
     public BigDecimal calculateFinalPrice(BigDecimal subTotal, Integer taxId){
         BigDecimal finalPrice;
-        BigDecimal taxPrice = taxesRepository.getTaxPercentage(taxId);
-        finalPrice = subTotal.add(subTotal.multiply(taxPrice.divide(new BigDecimal(100))));
-        return finalPrice;
+        if(taxId == 4){
+            return subTotal;
+        }else {
+            BigDecimal taxPrice = taxesRepository.getTaxPercentage(taxId);
+            finalPrice = subTotal.add(subTotal.multiply(taxPrice.divide(new BigDecimal(100))));
+            return finalPrice;
+        }
     }
 
     @Override

@@ -11,6 +11,6 @@ import java.math.BigDecimal;
 @Repository
 public interface TaxesRepository extends JpaRepository<Tax, Integer> {
 
-    @Query(value = "select percentage from taxes where id = :id", nativeQuery = true)
+    @Query(value = "select percentage from tax_values where id = :id", nativeQuery = true)
     BigDecimal getTaxPercentage(@Param("id") int taxId);
 }
