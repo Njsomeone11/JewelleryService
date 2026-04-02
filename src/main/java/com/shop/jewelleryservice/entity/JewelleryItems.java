@@ -1,6 +1,8 @@
 package com.shop.jewelleryservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,20 +17,28 @@ public class JewelleryItems {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String metalType;
 
+    @Digits(integer = 6, fraction = 2)
     private BigDecimal quantity;
 
+    @Digits(integer = 2, fraction = 0)
     private Integer taxId;
 
+    @Digits(integer = 15, fraction = 2)
     private BigDecimal makingCharges;
 
+    @Digits(integer = 15, fraction = 2)
     private BigDecimal shippingCharges;
 
+    @Digits(integer = 15, fraction = 2)
     private BigDecimal finalPrice;
 
+    @Digits(integer = 1, fraction = 0)
     private Integer availability;
 
     @Override
