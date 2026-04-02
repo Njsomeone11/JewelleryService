@@ -1,4 +1,4 @@
-# 💍 Jewellery Shop
+# Jewellery Shop
 
 A full-stack **Jewellery Management SPA** built with **Angular** (frontend) and **Spring Boot** (backend). It allows users to manage jewellery items — add, edit, delete, filter by metal type, and sort by price — with real-time price calculation.
 
