@@ -21,7 +21,7 @@ A full-stack **Jewellery Management SPA** built with **Angular** (frontend) and 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 | Tech | Usage |
@@ -40,12 +40,12 @@ A full-stack **Jewellery Management SPA** built with **Angular** (frontend) and 
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── app.ts               # Main component — logic for CRUD, filter, sort, price calc
+│   ├── app.ts               # Main component — logic for CRUD, filter, sort, price calculation
 │   ├── app.html             # Template — grid, modal, snackbar
 │   └── services/
 │       └── jewelleryService.ts   # HTTP service for all API calls
@@ -91,16 +91,16 @@ The app runs on **`http://localhost:4200`**
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
-Base URL: `http://localhost:8080/jewellery`
+Base URL: `http://localhost:8080`
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/getItems` | Fetch all jewellery items, metals & taxes |
-| `POST` | `/createItem` | Create a new jewellery item |
-| `PUT` | `/updateItem/{id}` | Update an existing item |
-| `DELETE` | `/deleteItem/{id}` | Delete an item |
+| `GET` | `/jewellery/getItems` | Fetch all jewellery items, metals & taxes |
+| `POST` | `/jewellery/createItem` | Create a new jewellery item |
+| `PUT` | `/jewellery/updateItem/{id}` | Update an existing item |
+| `DELETE` | `/jewellery/deleteItem/{id}` | Delete an item |
 
 ### Sample Response — `GET /getItems`
 ```json
