@@ -23,14 +23,6 @@ A full-stack **Jewellery Management SPA** built with **Angular** (frontend) and 
 
 ## Tech Stack
 
-### Frontend
-| Tech | Usage |
-|------|-------|
-| Angular (Standalone) | SPA Framework |
-| Tailwind CSS | Styling |
-| Angular FormsModule | Two-way data binding |
-| Angular HttpClient | REST API calls |
-
 ### Backend
 | Tech | Usage |
 |------|-------|
@@ -38,26 +30,9 @@ A full-stack **Jewellery Management SPA** built with **Angular** (frontend) and 
 | Java | Business Logic |
 | ResponseEntity | HTTP Responses |
 
----
-
-## Project Structure
-
-```
-src/
-├── app/
-│   ├── app.ts               # Main component — logic for CRUD, filter, sort, price calculation
-│   ├── app.html             # Template — grid, modal, snackbar
-│   └── services/
-│       └── jewelleryService.ts   # HTTP service for all API calls
-```
-
----
-
 ## Setup & Installation
 
 ### Prerequisites
-- Node.js & npm
-- Angular CLI
 - Java 17+
 - Maven
 
@@ -73,21 +48,6 @@ cd JewelleryService
 ```
 
 The backend runs on **`http://localhost:8080`**
-
-### Frontend (Angular)
-
-```bash
-# Navigate to the frontend folder
-cd frontend
-
-# Install dependencies
-npm install
-
-# Start the development server
-ng serve
-```
-
-The app runs on **`http://localhost:4200`**
 
 ---
 
