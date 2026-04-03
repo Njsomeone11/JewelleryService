@@ -14,7 +14,8 @@ import java.math.BigDecimal;
 public class JewelleryItems {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "jItemSeq")
+    @SequenceGenerator(name = "jItemSeq", sequenceName = "jewel_item_seq", allocationSize = 1)
     private Long id;
 
     @NotNull
